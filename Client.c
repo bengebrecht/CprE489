@@ -8,8 +8,8 @@
 /* number as indicated in the project writeup.                               */
 /*                                                                           */
 /*****************************************************************************/
-
-int Client()
+#include "header.h"
+int main(int argc, char* argv[])
 {
 	int s;
 	int n;
@@ -28,13 +28,13 @@ int Client()
 
 	otheraddr.sin_family = AF_INET;
 	otheraddr.sin_port = htons(22222);
-	
+	otheraddr.sin_addr.s_addr = inet_addr(argv[1]);
 	s = socket(AF_INET, SOCK_STREAM, 0);
 
-	otherhost = gethostbyname(otherhostname);
-	bcopy(otherhost->h_addr_list[0], &otheraddr.sin_addr, otherhost->h_length);
+	//otherhost = gethostbyname(otherhostname);
+	//bcopy(otherhost->h_addr_list[0], &otheraddr.sin_addr, otherhost->h_length);
 
-	n = connect(s, &otheraddr, sizeof(otheraddr));
+	n = connect(s, (struct sockaddr *)&otheraddr, sizeof(otheraddr));
 
 	if ( n < 0)
 		return(n);
