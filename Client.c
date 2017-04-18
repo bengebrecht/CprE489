@@ -11,6 +11,7 @@
 #include "header.h"
 int main(int argc, char* argv[])
 {
+	printf("starting\n");
 	int s;
 	int n;
 	int code;
@@ -22,20 +23,21 @@ int main(int argc, char* argv[])
 
 	pid_t pid;
 
-	code = gethostname(thishostname, sizeof(thishostname));
+	//code = gethostname(thishostname, sizeof(thishostname));
 
 	bzero(&otheraddr, sizeof(otheraddr));
 
 	otheraddr.sin_family = AF_INET;
-	otheraddr.sin_port = htons(22222);
+	otheraddr.sin_port = htons(atoi(argv[2]));
 	otheraddr.sin_addr.s_addr = inet_addr(argv[1]);
+	printf("creating socket\n");
 	s = socket(AF_INET, SOCK_STREAM, 0);
-
+	printf("socket created\n");
 	//otherhost = gethostbyname(otherhostname);
 	//bcopy(otherhost->h_addr_list[0], &otheraddr.sin_addr, otherhost->h_length);
-
+	printf("connecting\n");
 	n = connect(s, (struct sockaddr *)&otheraddr, sizeof(otheraddr));
-
+	printf("connected\n");
 	if ( n < 0)
 		return(n);
 	else

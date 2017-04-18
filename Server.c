@@ -13,13 +13,14 @@
 
 int main(int argc, char* argv[])
 {
+	printf("starting\n");
 	struct sockaddr_in myaddr, otheraddr;
 	//struct hostent *myname;
 
 	int s, fd, otherlength;
 	FILE *fdopen(), *fp;
 	char ch;
-		//*hostname = "vulcan", 
+	//*hostname = "vulcan", 
 	//int hostnamelength;
 
 	pid_t pid;
@@ -29,17 +30,18 @@ int main(int argc, char* argv[])
 	//fprintf("%s", myname);
 	bzero(&myaddr, sizeof(myaddr));
 	myaddr.sin_family  = AF_INET;
-	myaddr.sin_port = htons(22222);
+	myaddr.sin_port = htons(atoi(argv[2]));
 	myaddr.sin_addr.s_addr = inet_addr(argv[1]);
-	//bcopy(myname->h_addr_list[0], &myaddr.sin_addr, myname->h_length);
+	//bcopy(myname->h_addr_list[0], &myaddr.sin_addr, myname->h_length);	
+	printf("binding\n");
 	bind(s, (struct sockaddr *)&myaddr, sizeof(myaddr));
-
+	printf("binded\n");
 	listen(s, 1);
-
-	otherlength = sizeof(otheraddr);
+	otherlength = sizeof(otheraddr);	
+	printf("accepting\n");
 	fd = accept(s, (struct sockaddr *)&otheraddr, &otherlength);
 
-	fprintf(stdout, "Connected");
-
+	fprintf(stdout, "Connected\n");
+	close(fd);
 	return(fd);
 }
