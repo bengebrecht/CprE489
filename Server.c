@@ -11,7 +11,7 @@
 /*****************************************************************************/
 #include "header.h"
 
-int main(int argc, char* argv[])
+int Server(char * IP, char * PORT)
 {
 	printf("starting\n");
 	struct sockaddr_in myaddr, otheraddr;
@@ -30,8 +30,8 @@ int main(int argc, char* argv[])
 	//fprintf("%s", myname);
 	bzero(&myaddr, sizeof(myaddr));
 	myaddr.sin_family  = AF_INET;
-	myaddr.sin_port = htons(atoi(argv[2]));
-	myaddr.sin_addr.s_addr = inet_addr(argv[1]);
+	myaddr.sin_port = htons(atoi(PORT));
+	myaddr.sin_addr.s_addr = inet_addr(IP);
 	//bcopy(myname->h_addr_list[0], &myaddr.sin_addr, myname->h_length);	
 	printf("binding\n");
 	bind(s, (struct sockaddr *)&myaddr, sizeof(myaddr));
@@ -42,6 +42,5 @@ int main(int argc, char* argv[])
 	fd = accept(s, (struct sockaddr *)&otheraddr, &otherlength);
 
 	fprintf(stdout, "Connected\n");
-	close(fd);
 	return(fd);
 }

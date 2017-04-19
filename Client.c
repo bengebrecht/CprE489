@@ -9,7 +9,7 @@
 /*                                                                           */
 /*****************************************************************************/
 #include "header.h"
-int main(int argc, char* argv[])
+int Client(char * IP, char * PORT)
 {
 	printf("starting\n");
 	int s;
