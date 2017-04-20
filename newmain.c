@@ -38,12 +38,6 @@ int main(int argc, char* argv[]) {
 	sIn = socket(AF_INET, SOCK_STREAM, 0);
 	printf("socket in created\n");
 
-	//If root server
-	if (atoi(argv[1]) == 1) {
-		//Wait until enter is pressed
-		printf("Press enter after last server is started...");
-		getchar();
-	}
 
 	outaddr.sin_family = AF_INET;
 	outaddr.sin_port = htons(atoi(argv[3]));
@@ -59,6 +53,15 @@ int main(int argc, char* argv[]) {
 	printf("listening\n");
 	listen(sIn, 5);
 	printf("listened\n");
+
+	//If root server
+	if (atoi(argv[1]) == 1) {
+		//Wait until enter is pressed
+		printf("Press enter after last server is started...");
+		getchar();
+	}
+
+	
 	printf("connecting\n");
 	n = connect(sOut, (struct sockaddr *)&outaddr, sizeof(outaddr));
 	printf("connected\n");
@@ -81,6 +84,4 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}
-
-
 }
